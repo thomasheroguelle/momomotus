@@ -1,0 +1,6 @@
+<h1>Momomotus</h1>
+<p>Pour commencer, quel est ton prénom ?</p>
+<form #ngform="ngForm" (ngSubmit)="onSubmit()">
+    Name: <input type="text" name='name' [(ngModel)]="name" name="nom">
+    <button type="submit">Submit</button>
+</form>

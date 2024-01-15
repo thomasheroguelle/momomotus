@@ -1,0 +1,15 @@
+.blue {
+    background-color: #0277C7;
+}
+
+.red {
+    background-color: #E7002A;
+}
+
+.border, span {
+    border: 1px solid grey
+}
+
+section {
+    background-color: #2B2B2B;
+}
