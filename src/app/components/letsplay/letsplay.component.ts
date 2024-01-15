@@ -12,8 +12,9 @@ export class LetsplayComponent implements OnInit {
   motusForm!: FormGroup;
   lettreCliquee: string = '';
   result: string = '';
-  isDisabled: { [key: string]: boolean } = {};
-
+  things: string = '';
+  thing: string = '';
+  classColors: { [key: string]: string } = {};
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -46,39 +47,35 @@ export class LetsplayComponent implements OnInit {
       Y: ['Y', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
       Z: ['Z', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
     });
-    var things = ["Chat", "Chien", "Maison", "Table", "Pomme", "Banane", "Plante", "Soleil", "Lune", "Arbre", "Fleurs", "Montagne", "Rivière", "Voiture", "Vélo", "Téléphone", "Ordinateur", "Astuce",];
-    var thing = things[Math.floor(Math.random() * things.length)];
-    console.log('The computer chose:' + thing);
-    
-    this.result = thing[0];
-   
-    Object.keys(this.motusForm.controls).forEach(key => {
-      this.isDisabled[key] = false;
-    })
-
+    const things = ["Chat", "Chien", "Maison", "Table", "Pomme", "Banane", "Plante", "Soleil", "Lune", "Arbre", "Fleurs", "Montagne", "Riviere", "Voiture", "Velo", "Telephone", "Ordinateur", "Astuce",];
+   this.thing = things[Math.floor(Math.random() * things.length)];
+    console.log('The computer chose:' + this.thing); // random words
   }
 
   isResultEqual(lettre: string): boolean {
-    return this.result === this.motusForm.get(lettre)?.value;
+    return this.thing === this.motusForm.get(lettre)?.value; // [0] = red letter on keyboard
   }
 
-  updateValue(lettre: string): void {
+    updateValue(lettre: string): void {
     this.lettreCliquee += lettre;
-    console.log(lettre);
-    this.isDisabled[lettre] = true;
+    console.log("lettreCliquee", this.lettreCliquee);
   }
   onSubmit(): void {
   }
 
-  randomString(length: number, chars: string): string {
-    let result = '';
-    for (let i = length; i > 0; --i) {
-      result += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return result;
+  remove() {
+    this.lettreCliquee = this.lettreCliquee.substring(0, this.lettreCliquee.length - 1);
+    console.log(this.lettreCliquee);
   }
 
-
-
+  reset() {
+    this.lettreCliquee = "";
+  }
+  isLetterCorrect(lettre: string): boolean {
+    const occurrences = this.thing.split('').filter(char => char === lettre);
+    return occurrences.length > 0;
+  }
+  
+  
 }
 

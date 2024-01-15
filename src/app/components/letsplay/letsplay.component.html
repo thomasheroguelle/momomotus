@@ -1,24 +1,33 @@
-<!-- letsplay.component.html -->
-
-<div [ngClass]="{'red-text': isResultEqual(result)}"
-    style="display: flex; justify-content: center; align-items: center; flex-direction: column;"
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;"
     class="content-wrapper">
-    <p>La lettre cliquée est : {{ lettreCliquee }}</p>
-    <span aria-disabled="true" style="background-color: red">{{ result }} </span>
-    <span class="border">{{ lettreCliquee }}</span>
+    <p>La lettre cliquée est : {{ thing  }}</p>
+    <table>
+        <tr>
+            <!-- <td style="background-color: red">{{ result }}</td> -->
+            <td style="background-color: red">{{ thing[0] }}</td>
+
+         
+            <td class="border" *ngFor="let lettre of lettreCliquee.split('')">
+                <span [ngClass]="{ 'correct': isLetterCorrect(lettre), 'incorrect': !isLetterCorrect(lettre) }">{{ lettre }}</span>
+              </td>
+            <!-- split('') pour obtenir un tableau de lettres individuelles, p -->
+        </tr>
+    </table>
 </div>
 
 <div class="keyboard">
-    <p class="result">{{ result }}</p>
 
     <form #ngForm="ngForm" (ngSubmit)="onSubmit()">
         <div *ngFor="let lettre of motusForm.controls | keyvalue">
-            <button type="button"
-                    (click)="updateValue(lettre.key)"
-                    [ngClass]="{'red-text': isResultEqual(lettre.key) }"
-                    [attr.disabled]="isDisabled[lettre.key] ? true : null"> {{ lettre.key }}
+            <button type="button" (click)="updateValue(lettre.key)"
+                [ngStyle]="{ 'background-color': isResultEqual(lettre.key) ? 'red' : '#2B2B2B' }"> {{ lettre.key }}
             </button>
         </div>
     </form>
-    <button class="submit" type="submit">Valider</button>
+
+    <div class="btn-wrapper">
+        <button class="submit" type="submit">Valider</button>
+        <button (click)="remove()" class="submit" type="delete">Delete</button>
+        <button (click)="reset()" class="submit" type="reset">Reset</button>
+    </div>
 </div>

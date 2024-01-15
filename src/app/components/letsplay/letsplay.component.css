@@ -52,3 +52,28 @@ p {
 .red-text {
     background-color: red;
 }
+
+.btn-wrapper {
+    display: flex;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.square-red {
+    border: 2px solid red;
+  }
+  
+  .circle-yellow {
+    border: 2px solid yellow;
+    border-radius: 50%;
+  }
+  
+  .blue {
+    background-color: blue;
+    color: white;
+  }
+
+  .correct {background-color: red;}
+  
