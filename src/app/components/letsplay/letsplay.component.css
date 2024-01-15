@@ -1,0 +1,48 @@
+form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+button {
+
+    border-radius: 70%;
+    background-color: #48abe0;
+    color: white;
+    border: none;
+    padding: 5px;
+    font-size: 31px;
+    height: 70px;
+    width: 70px;
+    box-shadow: 0 2px 4px darkslategray;
+    cursor: pointer;
+}
+
+p {
+    text-align: center;
+}
+
+.result {
+    color: red;
+    font-weight: bold;
+}
+
+.keyboard {
+    width: 500px;
+}
+
+.content-wrapper {
+    border: 1px solid red;
+    height: 30vh;
+}
+
+td {
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 2em;
+}
+
+.tableau {
+}

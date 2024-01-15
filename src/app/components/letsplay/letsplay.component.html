@@ -1,0 +1,37 @@
+<!-- letsplay.component.html -->
+
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;" class="content-wrapper">
+<p>La lettre cliquée est : {{ lettreCliquee }}</p>
+    <div class="tableau">     
+    <tr>
+        <td aria-disabled="true" style="color: red;">{{result}}</td>
+        <td>{{lettreCliquee}}</td>
+        <td>C</td>
+        <td>D</td>
+      </tr>
+      <tr>
+        <td>A</td>
+        <td>B</td>
+        <td>C</td>
+        <td>D</td>
+      </tr>      
+    </div>
+
+</div>
+
+<div class="keyboard">
+    <p class="result">{{result}}</p>
+
+    <form #ngForm="ngForm" (ngSubmit)="onSubmit()">
+        <div *ngFor="let lettre of motusForm.controls | keyvalue">
+            <button type="button" (click)="updateValue(lettre.key)"
+                [ngStyle]="{ 'color': isResultEqual(lettre.key) ? 'red' : 'black' }"> {{ lettre.key }}</button>
+        </div>
+
+
+    </form>
+    <button type="submit">Valider</button>
+    <!-- <p>La lettre cliquée est : {{ lettreCliquee }}</p> -->
+
+
+</div>
