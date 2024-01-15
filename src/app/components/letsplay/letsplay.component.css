@@ -38,11 +38,17 @@ p {
     height: 30vh;
 }
 
-td {
+.border {
     border: 1px solid #fff;
     color: #fff;
     font-size: 2em;
 }
 
-.tableau {
+.submit {
+    width: 40%;
+    border-radius: 0px;
+}
+
+.red-text {
+    background-color: red;
 }

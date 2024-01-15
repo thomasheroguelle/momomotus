@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// import { IWord, WORDS } from '../../RandomWords';
 
 @Component({
   selector: 'app-letsplay',
@@ -9,9 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LetsplayComponent implements OnInit {
 
   motusForm!: FormGroup;
-  lettreCliquee: string | undefined;
+  lettreCliquee: string = '';
   result: string = '';
-  isDisabled = true;
+  isDisabled: { [key: string]: boolean } = {};
 
 
   constructor(private formBuilder: FormBuilder) { }
@@ -45,7 +46,15 @@ export class LetsplayComponent implements OnInit {
       Y: ['Y', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
       Z: ['Z', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
     });
-    this.result = this.randomString(1, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    var things = ["Chat", "Chien", "Maison", "Table", "Pomme", "Banane", "Plante", "Soleil", "Lune", "Arbre", "Fleurs", "Montagne", "Rivière", "Voiture", "Vélo", "Téléphone", "Ordinateur", "Astuce",];
+    var thing = things[Math.floor(Math.random() * things.length)];
+    console.log('The computer chose:' + thing);
+    
+    this.result = thing[0];
+   
+    Object.keys(this.motusForm.controls).forEach(key => {
+      this.isDisabled[key] = false;
+    })
 
   }
 
@@ -55,12 +64,11 @@ export class LetsplayComponent implements OnInit {
 
   updateValue(lettre: string): void {
     this.lettreCliquee += lettre;
-    console.log(lettre)
+    console.log(lettre);
+    this.isDisabled[lettre] = true;
   }
   onSubmit(): void {
-    // Votre logique de soumission ici
   }
-
 
   randomString(length: number, chars: string): string {
     let result = '';
@@ -69,4 +77,8 @@ export class LetsplayComponent implements OnInit {
     }
     return result;
   }
+
+
+
 }
+

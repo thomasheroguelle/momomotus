@@ -1,37 +1,24 @@
 <!-- letsplay.component.html -->
 
-<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;" class="content-wrapper">
-<p>La lettre cliquée est : {{ lettreCliquee }}</p>
-    <div class="tableau">     
-    <tr>
-        <td aria-disabled="true" style="color: red;">{{result}}</td>
-        <td>{{lettreCliquee}}</td>
-        <td>C</td>
-        <td>D</td>
-      </tr>
-      <tr>
-        <td>A</td>
-        <td>B</td>
-        <td>C</td>
-        <td>D</td>
-      </tr>      
-    </div>
-
+<div [ngClass]="{'red-text': isResultEqual(result)}"
+    style="display: flex; justify-content: center; align-items: center; flex-direction: column;"
+    class="content-wrapper">
+    <p>La lettre cliquée est : {{ lettreCliquee }}</p>
+    <span aria-disabled="true" style="background-color: red">{{ result }} </span>
+    <span class="border">{{ lettreCliquee }}</span>
 </div>
 
 <div class="keyboard">
-    <p class="result">{{result}}</p>
+    <p class="result">{{ result }}</p>
 
     <form #ngForm="ngForm" (ngSubmit)="onSubmit()">
         <div *ngFor="let lettre of motusForm.controls | keyvalue">
-            <button type="button" (click)="updateValue(lettre.key)"
-                [ngStyle]="{ 'color': isResultEqual(lettre.key) ? 'red' : 'black' }"> {{ lettre.key }}</button>
+            <button type="button"
+                    (click)="updateValue(lettre.key)"
+                    [ngClass]="{'red-text': isResultEqual(lettre.key) }"
+                    [attr.disabled]="isDisabled[lettre.key] ? true : null"> {{ lettre.key }}
+            </button>
         </div>
-
-
     </form>
-    <button type="submit">Valider</button>
-    <!-- <p>La lettre cliquée est : {{ lettreCliquee }}</p> -->
-
-
+    <button class="submit" type="submit">Valider</button>
 </div>
