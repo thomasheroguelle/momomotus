@@ -1,6 +1,9 @@
-<p>Prêt ? {{ name }}</p>
-<p>{{title}}</p>
+<div class="flex">
+    <p>Prêt ? {{ name }}</p>
+    <h1>MOMOMOTUS</h1>
+    <button mat-raised-button (click)="openDialog()"><i class="fa-solid fa-circle-question"></i></button>
+</div>
 
-<button mat-raised-button (click)="openDialog()">Pick one</button>
+<hr>
 
 <app-letsplay> </app-letsplay>

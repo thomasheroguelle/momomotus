@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { IWord, WORDS } from '../../RandomWords';
 
 @Component({
   selector: 'app-letsplay',
   templateUrl: './letsplay.component.html',
-  styleUrl: './letsplay.component.css'
+  styleUrls: ['./letsplay.component.css']
 })
 export class LetsplayComponent implements OnInit {
 
@@ -47,20 +46,25 @@ export class LetsplayComponent implements OnInit {
       Y: ['Y', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
       Z: ['Z', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
     });
+
     const things = ["Chat", "Chien", "Maison", "Table", "Pomme", "Banane", "Plante", "Soleil", "Lune", "Arbre", "Fleurs", "Montagne", "Riviere", "Voiture", "Velo", "Telephone", "Ordinateur", "Astuce",];
-   this.thing = things[Math.floor(Math.random() * things.length)];
-    console.log('The computer chose:' + this.thing); // random words
+    this.thing = things[Math.floor(Math.random() * things.length)];
+    console.log('L\'ordinateur a choisi : ' + this.thing); // Mots aléatoires
   }
 
   isResultEqual(lettre: string): boolean {
-    return this.thing === this.motusForm.get(lettre)?.value; // [0] = red letter on keyboard
+    return this.thing === this.motusForm.get(lettre)?.value; // [0] = lettre rouge sur le clavier
   }
 
-    updateValue(lettre: string): void {
-    this.lettreCliquee += lettre;
-    console.log("lettreCliquee", this.lettreCliquee);
+  updateValue(lettre: string): void {
+    if (!this.lettreCliquee.includes(lettre)) {
+      this.lettreCliquee += lettre;
+      console.log("lettreCliquee", this.lettreCliquee);
+    }
   }
+
   onSubmit(): void {
+    // À implémenter
   }
 
   remove() {
@@ -68,14 +72,8 @@ export class LetsplayComponent implements OnInit {
     console.log(this.lettreCliquee);
   }
 
-  reset() {
-    this.lettreCliquee = "";
-  }
-  isLetterCorrect(lettre: string): boolean {
-    const occurrences = this.thing.split('').filter(char => char === lettre);
-    return occurrences.length > 0;
-  }
-  
-  
-}
 
+  isLetterGuessed(lettre: string): boolean {
+    return this.lettreCliquee.includes(lettre);
+  }
+}

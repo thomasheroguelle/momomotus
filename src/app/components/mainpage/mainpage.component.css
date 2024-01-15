@@ -1,0 +1,20 @@
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+button {
+    border: #fff;
+
+    background-color: #2B2B2B;
+    color: #fff;
+}
+
+
+
+hr {
+    color: #fff;
+}

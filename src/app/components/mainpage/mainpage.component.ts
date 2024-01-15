@@ -20,8 +20,6 @@ export class MainpageComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
-      width: '1250px',
-      height: '1250px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

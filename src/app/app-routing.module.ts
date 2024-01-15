@@ -5,9 +5,9 @@ import { MainpageComponent } from './components/mainpage/mainpage.component';
 import { LetsplayComponent } from './components/letsplay/letsplay.component';
 
 const routes: Routes = [
-  // { path: '', component: HomepageComponent },
-  // { path: 'main', component: MainpageComponent },
-  { path: '', component: LetsplayComponent },
+  { path: '', component: HomepageComponent },
+  { path: 'main', component: MainpageComponent },
+  { path: 'play', component: LetsplayComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

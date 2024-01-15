@@ -6,10 +6,39 @@
     background-color: #E7002A;
 }
 
-.border, span {
-    border: 1px solid grey
+.line-height {
+    line-height: 2em;
 }
+
+p {
+    opacity: 75%;
+
+}
+
+span {
+    font-size: 28px;
+    color: #fff;
+    opacity: 90%;
+    padding: 8px;
+    border: 1px solid #fff
+}
+
+
 
 section {
     background-color: #2B2B2B;
+    border: 2px solid #fff;
+    padding: 50px;
+  
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+button , .fa-solid, .fa-xmark{
+    border: none;
 }

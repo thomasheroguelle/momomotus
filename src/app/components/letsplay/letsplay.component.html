@@ -1,33 +1,30 @@
 <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;"
     class="content-wrapper">
-    <p>La lettre cliquée est : {{ thing  }}</p>
+    <p>La lettre cliquée est : {{ thing }}</p>
     <table>
         <tr>
-            <!-- <td style="background-color: red">{{ result }}</td> -->
             <td style="background-color: red">{{ thing[0] }}</td>
 
-         
-            <td class="border" *ngFor="let lettre of lettreCliquee.split('')">
-                <span [ngClass]="{ 'correct': isLetterCorrect(lettre), 'incorrect': !isLetterCorrect(lettre) }">{{ lettre }}</span>
-              </td>
-            <!-- split('') pour obtenir un tableau de lettres individuelles, p -->
+            <td class="border" *ngFor="let lettre of thing.split('')">
+                <span [style.color]="isLetterGuessed(lettre) ? 'red' : 'black'">{{ isLetterGuessed(lettre) ? lettre :
+                    '_' }}</span>
+            </td>
         </tr>
     </table>
 </div>
 
-<div class="keyboard">
 
+<div class="keyboard">
     <form #ngForm="ngForm" (ngSubmit)="onSubmit()">
         <div *ngFor="let lettre of motusForm.controls | keyvalue">
-            <button type="button" (click)="updateValue(lettre.key)"
+            <button style="    border: 1px solid #fff;
+            " type="button" (click)="updateValue(lettre.key)"
                 [ngStyle]="{ 'background-color': isResultEqual(lettre.key) ? 'red' : '#2B2B2B' }"> {{ lettre.key }}
             </button>
         </div>
+        <button (click)="remove()" class="submit" type="delete">SUPPRIMER</button>
+        <button class="submit" type="submit">VALIDER</button>
     </form>
 
-    <div class="btn-wrapper">
-        <button class="submit" type="submit">Valider</button>
-        <button (click)="remove()" class="submit" type="delete">Delete</button>
-        <button (click)="reset()" class="submit" type="reset">Reset</button>
-    </div>
+    
 </div>

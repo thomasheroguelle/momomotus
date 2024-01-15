@@ -1,25 +1,27 @@
 <section>
-    <button (click)="onNoClick()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="flex">
+        <h2>REGLES</h2>
+        <button (click)="onNoClick()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
 
-    <h2>Règles</h2>
-    <p>Vous avez six essais pour deviner le mot du jour, entre 6 et 9 lettres, commun à tous.
-        Vous ne pouvez proposer que des mots commençant par la même lettre que le mot recherché, et qui se trouvent dans
-        notre dictionnaire.
-        Les noms propres ne sont pas acceptés.</p>
+    <p class="line-height">Vous avez six essais pour deviner le mot du jour, entre 6 et 9 lettres, commun à tous. <br>
+        Vous ne pouvez proposer que des mots commençant par la même lettre que le mot recherché, et qui se <br>
+        trouvent dans
+        notre dictionnaire. <br>Les noms propres ne sont pas acceptés.</p>
 
 
     <div class="border">
         <span class="red">S</span>
         <span class="blue">A</span>
         <span class="blue">L</span>
-        <span class="blue">U</span>
-        <span class="blue">T</span>
+        <span class="blue border-yellow">U</span>
+        <span class="blue border-yellow">T</span>
     </div>
 
-    <ul>
-        <li>🟥 Les lettres entourées d'un carré rouge sont bien placées</li>
-        <li> 🟡 Les lettres entourées d'un cercle jaune sont mal placées (mais présentes dans le mot).</li>
-        <li>🟦 Les lettres qui restent sur fond bleu ne sont pas dans le mot.</li>
-    </ul>
+ 
+        <p>🟥 Les lettres entourées d'un carré rouge sont bien placées</p>
+        <p> 🟡 Les lettres entourées d'un cercle jaune sont mal placées (mais présentes dans le mot).</p>
+        <p>🟦 Les lettres qui restent sur fond bleu ne sont pas dans le mot.</p>
+
 
 </section>

@@ -13,11 +13,11 @@ button {
     color: white;
     border: none;
     padding: 5px;
-    font-size: 31px;
-    height: 70px;
-    width: 70px;
-    box-shadow: 0 2px 4px darkslategray;
+    font-size: 24px;
+    height: 50px;
+    width: 50px;
     cursor: pointer;
+    margin: 10px;
 }
 
 p {
@@ -30,11 +30,10 @@ p {
 }
 
 .keyboard {
-    width: 500px;
+    width: 800px;
 }
 
 .content-wrapper {
-    border: 1px solid red;
     height: 30vh;
 }
 
@@ -45,17 +44,18 @@ p {
 }
 
 .submit {
-    width: 40%;
-    border-radius: 0px;
+    width: 20%;
+    border-radius: 40px;
+    background-color: #2B2B2B;
+    border: 1px solid #fff;
+    font-size: 14px
+    ;
 }
 
 .red-text {
     background-color: red;
 }
 
-.btn-wrapper {
-    display: flex;
-}
 
 .blue {
     background-color: blue;

@@ -1,0 +1,27 @@
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 50vh;
+    gap: 10px;
+
+}
+
+h1,
+p {
+    text-align: center;
+}
+
+input {
+    width: 250px;
+    height: 2em;
+}
+
+.button {
+    background-color: #0177C7;
+    padding: 10px;
+    border: none;
+    color: #fff;
+    margin-left: 15px;
+}
