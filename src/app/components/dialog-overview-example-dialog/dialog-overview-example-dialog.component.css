@@ -12,7 +12,6 @@
 
 p {
     opacity: 75%;
-
 }
 
 span {
@@ -29,14 +28,12 @@ section {
     background-color: #2B2B2B;
     border: 2px solid #fff;
     padding: 50px;
-  
 }
 
 .flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 }
 
 button , .fa-solid, .fa-xmark{

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { WinnerdialogComponent } from '../winnerdialog/winnerdialog.component';
+import { LoserdialogComponent } from '../loserdialog/loserdialog.component';
 
 @Component({
   selector: 'app-letsplay',
@@ -7,73 +10,116 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./letsplay.component.css']
 })
 export class LetsplayComponent implements OnInit {
-
   motusForm!: FormGroup;
-  lettreCliquee: string = '';
-  result: string = '';
-  things: string = '';
-  thing: string = '';
-  classColors: { [key: string]: string } = {};
+  wordToGuess: string = '';
+  guessedLetters: string[] = [];
+  alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.motusForm = this.formBuilder.group({
-      A: ['A', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      B: ['B', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      C: ['C', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      D: ['D', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      E: ['E', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      F: ['F', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      G: ['G', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      H: ['H', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      I: ['I', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      J: ['J', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      K: ['K', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      L: ['L', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      M: ['M', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      N: ['N', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      O: ['O', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      P: ['P', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      Q: ['Q', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      R: ['R', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      S: ['S', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      T: ['T', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      U: ['U', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      V: ['V', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      W: ['W', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      X: ['X', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      Y: ['Y', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
-      Z: ['Z', [Validators.required, Validators.maxLength(1), Validators.pattern(/[a-zA-Z]/)]],
+    this.initializeForm();
+    this.chooseRandomWord();
+  }
+
+  initializeForm(): void {
+    const alphabetValidators = [Validators.required, Validators.pattern(/[a-zA-Z]/)];
+
+    this.motusForm = this.formBuilder.group({});
+
+    this.alphabet.forEach(letter => {
+      this.motusForm.addControl(letter, this.formBuilder.control(letter, alphabetValidators));
     });
-
-    const things = ["Chat", "Chien", "Maison", "Table", "Pomme", "Banane", "Plante", "Soleil", "Lune", "Arbre", "Fleurs", "Montagne", "Riviere", "Voiture", "Velo", "Telephone", "Ordinateur", "Astuce",];
-    this.thing = things[Math.floor(Math.random() * things.length)];
-    console.log('L\'ordinateur a choisi : ' + this.thing); // Mots aléatoires
   }
 
-  isResultEqual(lettre: string): boolean {
-    return this.thing === this.motusForm.get(lettre)?.value; // [0] = lettre rouge sur le clavier
+  chooseRandomWord(): void {
+    const words: string[] = ["Abricot", "Citron",  "Girafe", "Hibou",
+    "Iguane","Mangue", "Orque", "Papillon"];
+  
+
+    this.wordToGuess = words[Math.floor(Math.random() * words.length)].toUpperCase();
+    console.log('L\'ordinateur a choisi : ' + this.wordToGuess);
   }
 
-  updateValue(lettre: string): void {
-    if (!this.lettreCliquee.includes(lettre)) {
-      this.lettreCliquee += lettre;
-      console.log("lettreCliquee", this.lettreCliquee);
+  addLetter(letter: string): void {
+    if (this.guessedLetters.length < 9) {
+      const formControl = this.motusForm.get(letter);
+      if (formControl?.value) {
+        this.guessedLetters.push(formControl.value.toUpperCase());
+        formControl.setValue('');
+      }
     }
+  }
+  
+
+  isLetterCorrect(letter: string): boolean {
+    return this.guessedLetters.includes(letter) && this.wordToGuess.includes(letter);
   }
 
   onSubmit(): void {
-    // À implémenter
+    // Vérifiez si toutes les lettres saisies sont valides
+    const areAllLettersValid = this.guessedLetters.every(letter => this.alphabet.includes(letter));
+  
+    if (areAllLettersValid) {
+      const userGuess = this.guessedLetters.join('');
+      if (userGuess === this.wordToGuess) {
+        console.log('Félicitations, vous avez deviné le mot !');
+        this.openDialog();
+        this.onClickReset.emit();
+      } else {
+        console.log('Essayez à nouveau.');
+        // this.openDialogForTheLoser();
+      }
+    } else {
+      console.log('Veuillez saisir des lettres valides.');
+    }
+  }
+  
+
+  getSortedLetters(): string[] {
+    return Array.from(new Set(this.wordToGuess.split(''))).sort();
   }
 
-  remove() {
-    this.lettreCliquee = this.lettreCliquee.substring(0, this.lettreCliquee.length - 1);
-    console.log(this.lettreCliquee);
+  deleteLetter(letter: string): void {
+    const letterIndex = this.guessedLetters.indexOf(letter);
+    if (letterIndex !== -1) {
+      this.guessedLetters.splice(letterIndex, 1);
+    }
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(WinnerdialogComponent, {
+      data: { correctWord: this.wordToGuess }
+    });
 
-  isLetterGuessed(lettre: string): boolean {
-    return this.lettreCliquee.includes(lettre);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openDialogForTheLoser(): void {
+    const dialogRef = this.dialog.open(LoserdialogComponent, {
+      data: { correctWord: this.wordToGuess }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  @Output() onClickReset = new EventEmitter<string>();
+
+  removeLastLetter(): void {
+    if (this.guessedLetters.length > 0) {
+      this.guessedLetters.pop();
+    }
+  }
+  
+  isLetterChosen(letter: string): boolean {
+    return this.guessedLetters.includes(letter);
+  }
+
+  isLetterIncorrectButPresent(letter: string, index: number): boolean {
+    return !this.isLetterCorrect(letter) && this.wordToGuess.includes(letter) && this.wordToGuess.indexOf(letter) !== this.guessedLetters.lastIndexOf(letter);
   }
 }

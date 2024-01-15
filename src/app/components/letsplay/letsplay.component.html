@@ -1,30 +1,44 @@
-<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;"
-    class="content-wrapper">
-    <p>La lettre cliquée est : {{ thing }}</p>
-    <table>
+<div>
+  <p style="color: white;"> {{wordToGuess}}</p>
+  
+  <form [formGroup]="motusForm" (ngSubmit)="onSubmit()">
+    <div class="keyboard">
+      <table>
         <tr>
-            <td style="background-color: red">{{ thing[0] }}</td>
-
-            <td class="border" *ngFor="let lettre of thing.split('')">
-                <span [style.color]="isLetterGuessed(lettre) ? 'red' : 'black'">{{ isLetterGuessed(lettre) ? lettre :
-                    '_' }}</span>
-            </td>
+          <td *ngFor="let guessedLetter of guessedLetters; let i = index">
+            <span  [ngClass]="{
+              'correct-letter': isLetterCorrect(guessedLetter),
+              'incorrect-letter': !isLetterCorrect(guessedLetter),
+              'yellow-letter': isLetterIncorrectButPresent(guessedLetter, i)
+            }">
+              {{ isLetterCorrect(guessedLetter) ? guessedLetter : guessedLetter }}
+            </span>
+          </td>
         </tr>
-    </table>
-</div>
+      </table>
 
+      <button class="letters" *ngFor="let letter of alphabet" (click)="addLetter(letter)" [disabled]="isLetterChosen(letter)">{{ letter }}</button>
+      
+      <div *ngIf="guessedLetters.length > 9">
+        <table>
+          <tr>
+            <td *ngFor="let guessedLetter of guessedLetters.slice(9); let i = index">
+              <span [ngClass]="{
+                'correct-letter': isLetterCorrect(guessedLetter),
+                'incorrect-letter': !isLetterCorrect(guessedLetter),
+                'yellow-letter': isLetterIncorrectButPresent(guessedLetter, i + 9)
+              }">
+                {{ isLetterCorrect(guessedLetter) ? guessedLetter : guessedLetter }}
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
-<div class="keyboard">
-    <form #ngForm="ngForm" (ngSubmit)="onSubmit()">
-        <div *ngFor="let lettre of motusForm.controls | keyvalue">
-            <button style="    border: 1px solid #fff;
-            " type="button" (click)="updateValue(lettre.key)"
-                [ngStyle]="{ 'background-color': isResultEqual(lettre.key) ? 'red' : '#2B2B2B' }"> {{ lettre.key }}
-            </button>
-        </div>
-        <button (click)="remove()" class="submit" type="delete">SUPPRIMER</button>
-        <button class="submit" type="submit">VALIDER</button>
-    </form>
-
-    
+    <div class="btn-wrapper">
+      <button class="submit" (click)="removeLastLetter()">SUPPRIMER</button>
+      <button class="submit" type="submit">VALIDER</button>
+    </div>
+  </form>
 </div>

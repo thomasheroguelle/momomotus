@@ -1,0 +1,30 @@
+h1 {
+    font-size: 32px;
+}
+
+h1, p {
+    text-align: center;
+}
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+section {
+    background-color: #2B2B2B;
+    border: 2px solid #fff;
+    padding: 50px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+button {
+    background-color: #0177C7;
+    padding: 10px;
+    color: #fff;
+}

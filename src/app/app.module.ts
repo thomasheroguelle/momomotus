@@ -11,6 +11,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DialogOverviewExampleDialogComponent } from './components/dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import { LetsplayComponent } from './components/letsplay/letsplay.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { WinnerdialogComponent } from './components/winnerdialog/winnerdialog.component';
+import { LoserdialogComponent } from './components/loserdialog/loserdialog.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomepageComponent,
     MainpageComponent,
     DialogOverviewExampleDialogComponent,
-    LetsplayComponent
+    LetsplayComponent,
+    WinnerdialogComponent,
+    LoserdialogComponent
   ],
   imports: [
     BrowserModule,
