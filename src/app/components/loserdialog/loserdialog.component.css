@@ -12,3 +12,9 @@ h1,
 p {
     text-align: center;
 }
+
+button,
+.fa-solid,
+.fa-xmark {
+    border: none;
+}

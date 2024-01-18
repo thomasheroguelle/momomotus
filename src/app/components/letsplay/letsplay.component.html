@@ -16,6 +16,21 @@
           </td>
         </tr>
       </table>
+      
+      <!-- Display the second table only if the first table has more than 9 characters -->
+      <table *ngIf="guessedLetters.length >= 9">
+        <tr>
+          <td *ngFor="let guessedLetter of guessedLetters; let i = index">
+            <span  [ngClass]="{
+              'correct-letter': isLetterCorrect(guessedLetter),
+              'incorrect-letter': !isLetterCorrect(guessedLetter),
+              'yellow-letter': isLetterIncorrectButPresent(guessedLetter, i)
+            }">
+              {{ isLetterCorrect(guessedLetter) ? guessedLetter : guessedLetter }}
+            </span>
+          </td>
+        </tr>
+      </table>
 
       <button class="letters" *ngFor="let letter of alphabet" (click)="addLetter(letter)" [disabled]="isLetterChosen(letter)">{{ letter }}</button>
       

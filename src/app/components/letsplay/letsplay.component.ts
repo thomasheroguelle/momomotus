@@ -57,7 +57,6 @@ export class LetsplayComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // Vérifiez si toutes les lettres saisies sont valides
     const areAllLettersValid = this.guessedLetters.every(letter => this.alphabet.includes(letter));
   
     if (areAllLettersValid) {
@@ -68,7 +67,6 @@ export class LetsplayComponent implements OnInit {
         this.onClickReset.emit();
       } else {
         console.log('Essayez à nouveau.');
-        // this.openDialogForTheLoser();
       }
     } else {
       console.log('Veuillez saisir des lettres valides.');
